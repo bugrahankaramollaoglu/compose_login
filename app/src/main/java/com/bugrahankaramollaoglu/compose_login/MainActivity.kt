@@ -1,6 +1,7 @@
 package com.bugrahankaramollaoglu.compose_login
 
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,9 +20,16 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.bugrahankaramollaoglu.compose_login.ui.theme.Compose_loginTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,6 +44,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+val myT = FontFamily(
+    androidx.compose.ui.text.font.Font(R.font.kulim)
+)
+
 @Composable
 fun LoginPage() {
     val backgroundImage: Painter = painterResource(id = R.drawable.bg)
@@ -43,6 +55,7 @@ fun LoginPage() {
     val google: Painter = painterResource(id = R.drawable.google)
     val apple: Painter = painterResource(id = R.drawable.apple)
     val email: Painter = painterResource(id = R.drawable.email)
+
 
     // Get screen width and height
     val configuration = LocalConfiguration.current
@@ -94,21 +107,79 @@ fun LoginPage() {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    signButton(google, "Google Sign In", screenWidth*0.85f, screenHeight*0.05f, "Sign in with Google") {
+                    signButton(
+                        google,
+                        "Google Sign In",
+                        screenWidth * 0.85f,
+                        screenHeight * 0.05f,
+                        "Sign in with Google"
+                    ) {
                         // Handle Google sign-in click
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    signButton(apple, "Apple Sign In",screenWidth*0.85f, screenHeight*0.05f, "Sign in withApple") {
+                    signButton(
+                        apple,
+                        "Apple Sign In",
+                        screenWidth * 0.85f,
+                        screenHeight * 0.05f,
+                        "Sign in with Apple"
+                    ) {
                         // Handle Apple sign-in
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    signButton(email, "Email Sign In", screenWidth*0.85f, screenHeight*0.05f, "Sign in with Email") {
+                    signButton(
+                        email,
+                        "Email Sign In",
+                        screenWidth * 0.85f,
+                        screenHeight * 0.05f,
+                        "Sign in with Email"
+                    ) {
                         // Handle Email sign-in click
                     }
+
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Row {
+                        Text(text = "No Account? ", color = Color.White)
+                        Text(
+                            text = "Sign Up",
+                            color = Color.White,
+                            style = TextStyle(
+                                fontFamily = myT,
+                                fontSize = 19.sp
+                            )
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    HorizontalDivider(
+                        color = Color.White,
+                        thickness = 1.dp,
+                        modifier = Modifier.width(screenWidth * 0.55f)
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "Lorem Ipsum, Lorem Ipsum, Lorem Ipsum, Lorem Ipsum, Lorem Ipsum ",
+                        color = Color.White
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "Cicero",
+                        color = Color.White,
+                        style = TextStyle(
+                            fontSize = 19.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
+
                 }
             }
         }
@@ -128,7 +199,11 @@ fun signButton(
         onClick = onClick,
         modifier = Modifier
             .width(screenWidth) // Adjusting width based on screen size
-            .height(screenHeight) // Set a fixed height if needed
+            .height(screenHeight), // Set a fixed height if needed
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White.copy(alpha = 0.9f),
+        ),
+        shape = RoundedCornerShape(5.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
@@ -136,9 +211,10 @@ fun signButton(
                 contentDescription = contentDescription,
                 modifier = Modifier.size(24.dp) // Adjust the image size if needed
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = title)
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = title, color = Color.Black)
         }
+
     }
 }
 

@@ -53,6 +53,8 @@ dependencies {
 
     implementation (libs.accompanist.systemuicontroller)
     implementation(libs.cloudy)
+    implementation(libs.androidx.ui.text.google.fonts)
+
 
     /* *********** */
 
