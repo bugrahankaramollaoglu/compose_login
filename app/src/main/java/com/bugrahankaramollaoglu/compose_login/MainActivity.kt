@@ -91,7 +91,6 @@ fun LoginPage() {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Example Login Button
                     Button(onClick = { /* Handle login click */ }) {
                         Text(text = "Login")
                     }
