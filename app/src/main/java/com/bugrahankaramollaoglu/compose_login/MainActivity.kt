@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bugrahankaramollaoglu.compose_login.ui.theme.Compose_loginTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +75,96 @@ fun LoginPage() {
             modifier = Modifier.fillMaxSize()
         )
 
+
+
+        CustomGlassCard {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                Image(painter = greenifyPhoto, contentDescription = "Greenify Photo")
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                signButton(
+                    google,
+                    "Google Sign In",
+                    screenWidth * 0.85f,
+                    screenHeight * 0.05f,
+                    "Sign in with Google"
+                ) {
+                    // Handle Google sign-in click
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                signButton(
+                    apple,
+                    "Apple Sign In",
+                    screenWidth * 0.85f,
+                    screenHeight * 0.05f,
+                    "Sign in with Apple"
+                ) {
+                    // Handle Apple sign-in
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                signButton(
+                    email,
+                    "Email Sign In",
+                    screenWidth * 0.85f,
+                    screenHeight * 0.05f,
+                    "Sign in with Email"
+                ) {
+                    // Handle Email sign-in click
+                }
+
+                Spacer(modifier = Modifier.height(30.dp))
+                Row {
+                    Text(text = "No Account? ", color = Color.White)
+                    Text(
+                        text = "Sign Up",
+                        color = Color.White,
+                        style = TextStyle(
+                            fontFamily = myT,
+                            fontSize = 19.sp
+                        )
+                    )
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                HorizontalDivider(
+                    color = Color.White,
+                    thickness = 1.dp,
+                    modifier = Modifier.width(screenWidth * 0.55f)
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    textAlign = TextAlign.Center,
+                    text = "Lorem Ipsum, Lorem Ipsum, Lorem Ipsum, Lorem Ipsum, Lorem Ipsum ",
+                    color = Color.White
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    textAlign = TextAlign.Center,
+                    text = "Cicero",
+                    color = Color.White,
+                    style = TextStyle(
+                        fontSize = 19.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+        }
+
+/*
         Card(
             modifier = Modifier
                 .align(Alignment.Center)
@@ -182,9 +274,40 @@ fun LoginPage() {
 
                 }
             }
+        }*/
+    }
+}
+
+@Composable
+fun CustomGlassCard(content: @Composable () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White.copy(alpha = 0.1f)
+        ),
+//        elevation = 0.dp
+    ) {
+        Box(
+            modifier = Modifier
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color.White.copy(alpha = 0.1f),
+                            Color.White.copy(alpha = 0.3f)
+                        )
+                    )
+                )
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
         }
     }
 }
+
 
 @Composable
 fun signButton(
