@@ -128,7 +128,7 @@ fun LoginPage() {
                         screenHeight * 0.05f,
                         "Sign in with Google"
                     ) {
-                        // Handle Google sign-in click
+                        //TODO: signin with google
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -141,6 +141,8 @@ fun LoginPage() {
                         "Sign in with Apple"
                     ) {
                         // Handle Apple sign-in
+                        Log.d("mesaj", "apple Sign-In Clicked")
+
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -153,6 +155,7 @@ fun LoginPage() {
                         "Sign in with Email"
                     ) {
                         // Handle Email sign-in click
+                        Log.d("mesaj", "email Sign-In Clicked")
                     }
 
                     Spacer(modifier = Modifier.height(30.dp))
