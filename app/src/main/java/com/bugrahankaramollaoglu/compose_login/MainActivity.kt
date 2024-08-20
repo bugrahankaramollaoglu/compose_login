@@ -1,13 +1,23 @@
 package com.bugrahankaramollaoglu.compose_login
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -15,6 +25,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -147,14 +158,15 @@ fun LoginPage() {
                     Spacer(modifier = Modifier.height(30.dp))
                     Row {
                         Text(text = "No Account? ", color = Color.White)
-                        Text(
+                        ShimmerText(text = "Sign Up")
+                        /*Text(
                             text = "Sign Up",
                             color = Color.White,
                             style = TextStyle(
                                 fontFamily = myT,
                                 fontSize = 19.sp
                             )
-                        )
+                        )*/
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     HorizontalDivider(
@@ -190,33 +202,45 @@ fun LoginPage() {
 }
 
 @Composable
-fun CustomGlassCard(content: @Composable () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White.copy(alpha = 0.1f)
+fun ShimmerText(text: String) {
+    val infiniteTransition = rememberInfiniteTransition()
+
+    // Animate the shimmer position from 0f to 1000f for a smooth, slow left-to-right effect.
+    val shimmerTranslateAnim = infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 400f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 3000, // Adjust for smooth and slow effect
+                easing = LinearOutSlowInEasing
+            ),
+            repeatMode = RepeatMode.Restart
+        )
+    )
+
+    // Create the shimmer gradient moving left to right
+    val shimmerBrush = Brush.linearGradient(
+        colors = listOf(
+            Color.White.copy(alpha = 0.9f), // Starting color of the gradient
+            Color.White.copy(alpha = 0.8f), // Middle bright white color
+            Color.White.copy(alpha = 0.4f), // End color of the gradient
         ),
-//        elevation = 0.dp
-    ) {
-        Box(
-            modifier = Modifier
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.1f),
-                            Color.White.copy(alpha = 0.3f)
-                        )
-                    )
-                )
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            content()
+        start = Offset(shimmerTranslateAnim.value - 300f, 0f), // Move horizontally
+        end = Offset(shimmerTranslateAnim.value, 0f)
+    )
+
+    Text(
+        text = text,
+        style = TextStyle(
+            fontSize = 20.sp,
+            fontWeight = FontWeight.ExtraBold,
+//            color = Color.White, // Base color of the text
+            brush = shimmerBrush // Apply the shimmer effect brush
+        ),
+        modifier = Modifier.clickable {
+            //TODO
         }
-    }
+    )
 }
 
 
