@@ -48,7 +48,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import kotlinx.coroutines.tasks.await
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +79,6 @@ val myT = FontFamily(
     androidx.compose.ui.text.font.Font(R.font.kulim)
 )
 
-
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -91,7 +89,6 @@ fun Navigation() {
         composable("main") { MainPage(navController) }
     }
 }
-
 
 /*
 @Preview(showBackground = true)
