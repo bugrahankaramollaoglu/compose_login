@@ -43,17 +43,36 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bugrahankaramollaoglu.compose_login.ui.theme.Compose_loginTheme
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
+import kotlinx.coroutines.tasks.await
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // firebase
+        Firebase.initialize(this)
+
         setContent {
             Compose_loginTheme {
                 LoginPage()
             }
         }
+    }
+}
+
+suspend fun signInWithEmail(email: String, password: String): String? {
+    return try {
+        FirebaseAuth.getInstance()
+            .signInWithEmailAndPassword(email, password)
+            .await()
+        FirebaseAuth.getInstance().currentUser?.uid // Return the user ID
+    } catch (e: Exception) {
+        e.message // Return the error message
     }
 }
 
