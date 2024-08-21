@@ -67,6 +67,9 @@ fun SignUpPage(navController: NavHostController) {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
+    var isPasswordVisible by remember { mutableStateOf(false) }
+    var isConfirmPasswordVisible by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -138,11 +141,38 @@ fun SignUpPage(navController: NavHostController) {
                             .height(screenHeight * 0.25f)
                     )
 
-                    textField(email, "Enter email", KeyboardType.Email) { email = it }
+                    registerTextField(
+                        value = email,
+                        placeholder = "Enter email",
+                        keyboardType = KeyboardType.Email,
+                        onValueChange = { email = it }
+                    )
+
+                    registerTextField(
+                        value = password,
+                        placeholder = "Enter password",
+                        keyboardType = KeyboardType.Password,
+                        isPassword = true,
+                        isPasswordVisible = isPasswordVisible,
+                        showHidePassword = { isPasswordVisible = !isPasswordVisible },
+                        onValueChange = { password = it }
+                    )
+
+                    registerTextField(
+                        value = confirmPassword,
+                        placeholder = "Confirm password",
+                        keyboardType = KeyboardType.Password,
+                        isPassword = true,
+                        isPasswordVisible = isConfirmPasswordVisible,
+                        showHidePassword = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
+                        onValueChange = { confirmPassword = it }
+                    )
+
+                    /*textField(email, "Enter email", KeyboardType.Email) { email = it }
                     textField(password, "Enter password", KeyboardType.Password) { password = it }
                     textField(
                         confirmPassword, "Confirm password", KeyboardType.Password
-                    ) { confirmPassword = it }
+                    ) { confirmPassword = it }*/
 
                     Spacer(modifier = Modifier.height(screenHeight * 0.03f))
 

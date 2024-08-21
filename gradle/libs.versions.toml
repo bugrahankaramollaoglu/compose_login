@@ -15,6 +15,7 @@ composeBom = "2024.04.01"
 navigationCompose = "2.7.7"
 playServicesTagmanagerV4Impl = "18.1.0"
 uiTextGoogleFonts = "1.6.8"
+constraintlayoutCompose = "1.0.1"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -39,6 +40,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 play-services-tagmanager-v4-impl = { group = "com.google.android.gms", name = "play-services-tagmanager-v4-impl", version.ref = "playServicesTagmanagerV4Impl" }
+androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

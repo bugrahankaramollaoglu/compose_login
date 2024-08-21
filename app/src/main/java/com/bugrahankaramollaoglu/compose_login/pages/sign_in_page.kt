@@ -20,13 +20,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -53,6 +57,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.Visibility
 import androidx.navigation.NavHostController
 import com.bugrahankaramollaoglu.compose_login.R
 import com.bugrahankaramollaoglu.compose_login.myT
@@ -265,3 +270,40 @@ fun textField(value: String, hint: String, type: KeyboardType, onValueChange: (S
         modifier = Modifier.padding(10.dp)
     )
 }
+
+@Composable
+fun registerTextField(
+    value: String,
+    placeholder: String,
+    keyboardType: KeyboardType,
+    isPassword: Boolean = false,
+    onValueChange: (String) -> Unit,
+    showHidePassword: (() -> Unit)? = null,
+    isPasswordVisible: Boolean = true
+) {
+    val visualTransformation = if (isPassword && !isPasswordVisible) {
+        PasswordVisualTransformation()
+    } else {
+        VisualTransformation.None
+    }
+
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = { Text(text = placeholder) },
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
+        visualTransformation = visualTransformation,
+        trailingIcon = {
+            if (isPassword) {
+                IconButton(onClick = { showHidePassword?.invoke() }) {
+                    Icon(
+                        imageVector = if (isPasswordVisible) Icons.Filled.Settings else Icons.Filled.Share,
+                        contentDescription = if (isPasswordVisible) "Hide password" else "Show password"
+                    )
+                }
+            }
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
