@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,23 +47,25 @@ import com.bugrahankaramollaoglu.compose_login.myT
 import com.bugrahankaramollaoglu.compose_login.utils.signButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun SignUpPage(navController: NavHostController) {
-    val context = LocalContext.current // Get the current context
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
     val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
 
-    // Get screen width and height
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val screenHeight = configuration.screenHeightDp.dp
 
-    // credentials
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -99,7 +102,6 @@ fun SignUpPage(navController: NavHostController) {
                     )
                     .padding(16.dp), contentAlignment = Alignment.Center
             ) {
-                // Content inside the card
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -110,11 +112,11 @@ fun SignUpPage(navController: NavHostController) {
 
                     Box(
                         modifier = Modifier
-                            .size(35.dp) // Size of the circular background
-                            .align(Alignment.Start) // Aligns the Box to the start
+                            .size(35.dp)
+                            .align(Alignment.Start)
                             .background(
-                                color = Color.White.copy(alpha = 0.5f), // Background color
-                                shape = RoundedCornerShape(24.dp) // Circular shape
+                                color = Color.White.copy(alpha = 0.5f),
+                                shape = RoundedCornerShape(24.dp)
                             )
                             .clickable {
                                 navController.popBackStack()
@@ -123,8 +125,8 @@ fun SignUpPage(navController: NavHostController) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.Black, // Icon color
-                            modifier = Modifier.size(24.dp) // Size of the icon
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
 
@@ -163,26 +165,29 @@ fun SignUpPage(navController: NavHostController) {
                     ) {
                         if (password == confirmPassword) {
                             signUpWithCredentials(email, password) { success, message ->
-                                if (success) {
+                                coroutineScope.launch {
+                                    if (success) {
+                                        Toast.makeText(
+                                            context,
+                                            "Sign up successful!\nRedirecting in 4 seconds",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
 
-                                    Toast.makeText(
-                                        context,
-                                        "Sign up successful!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                        // Delay for 2 seconds
+                                        delay(4000)
 
-                                    navController.navigate("home") {
-                                        popUpTo(navController.graph.startDestinationId) {
-                                            inclusive = true
+                                        withContext(Dispatchers.Main) {
+                                            navController.navigate("home") {
+                                                popUpTo(navController.graph.startDestinationId) {
+                                                    inclusive = true
+                                                }
+                                            }
                                         }
+                                    } else {
+                                        Toast.makeText(
+                                            context, "Sign up unsuccessful", Toast.LENGTH_SHORT
+                                        ).show()
                                     }
-                                } else {
-                                    Toast.makeText(
-                                        context,
-                                        "Sign up unsuccessful",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-
                                 }
                             }
                         } else {
