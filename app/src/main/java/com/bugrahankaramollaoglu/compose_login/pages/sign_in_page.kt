@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -41,7 +42,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -57,7 +57,7 @@ import com.bugrahankaramollaoglu.compose_login.utils.signButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInPage(navController: NavHostController) {
-    val backgroundImage: Painter = painterResource(id = R.drawable.bg)
+    val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
 
     // Get screen width and height
     val configuration = LocalConfiguration.current
@@ -75,7 +75,9 @@ fun SignInPage(navController: NavHostController) {
             painter = backgroundImage,
             contentDescription = "Background Image",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(7.dp)
         )
 
 
@@ -136,12 +138,7 @@ fun SignInPage(navController: NavHostController) {
 
                     rememberMeCheckbox()
 
-
-
                     Spacer(modifier = Modifier.height(40.dp))
-
-
-
 
                     signButton(
                         image = null,
@@ -182,7 +179,8 @@ fun rememberMeCheckbox() {
     ) {
         Checkbox(
             checked = checked, onCheckedChange = { checked = it }, colors = CheckboxDefaults.colors(
-                checkmarkColor = Color.White
+                checkmarkColor = Color.White,
+                checkedColor = Color.DarkGray,
             )
         )
         Text(
@@ -222,7 +220,7 @@ fun textField(value: String, hint: String, type: KeyboardType, onValueChange: (S
             containerColor = Color.White.copy(alpha = 0.9f),
         ),
         textStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.W600),
-        visualTransformation = visualTransformation, // Apply visual transformation
+        visualTransformation = visualTransformation,
         modifier = Modifier.padding(10.dp)
     )
 }

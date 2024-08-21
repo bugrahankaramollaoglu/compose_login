@@ -17,10 +17,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -39,12 +41,11 @@ import com.bugrahankaramollaoglu.compose_login.utils.signButton
 
 @Composable
 fun MainPage(navController: NavHostController) {
-    val backgroundImage: Painter = painterResource(id = R.drawable.bg)
+    val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
     val greenifyPhoto: Painter = painterResource(id = R.drawable.greenify)
     val google: Painter = painterResource(id = R.drawable.google)
     val apple: Painter = painterResource(id = R.drawable.apple)
     val email: Painter = painterResource(id = R.drawable.email)
-
 
     // Get screen width and height
     val configuration = LocalConfiguration.current
@@ -59,9 +60,10 @@ fun MainPage(navController: NavHostController) {
             painter = backgroundImage,
             contentDescription = "Background Image",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(7.dp)
         )
-
 
         Card(
             modifier = Modifier
@@ -71,7 +73,7 @@ fun MainPage(navController: NavHostController) {
                 .height(screenHeight * 0.85f),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White.copy(alpha = 0.2f)
+                containerColor = Color.White.copy(alpha = 0.35f)
             )
         ) {
             Box(
@@ -130,9 +132,7 @@ fun MainPage(navController: NavHostController) {
                         screenHeight * 0.05f,
                         "Sign in with Email"
                     ) {
-                        // Handle Email sign-in click
                         navController.navigate("signIn")
-//                        Log.d("mesaj", "email Sign-In Clicked")
                     }
 
                     Spacer(modifier = Modifier.height(30.dp))
@@ -174,3 +174,5 @@ fun MainPage(navController: NavHostController) {
         }
     }
 }
+
+

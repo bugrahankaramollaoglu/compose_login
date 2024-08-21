@@ -66,9 +66,7 @@ class MainActivity : ComponentActivity() {
 
 suspend fun signInWithEmail(email: String, password: String): String? {
     return try {
-        FirebaseAuth.getInstance()
-            .signInWithEmailAndPassword(email, password)
-            .await()
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).await()
         FirebaseAuth.getInstance().currentUser?.uid // Return the user ID
     } catch (e: Exception) {
         e.message // Return the error message

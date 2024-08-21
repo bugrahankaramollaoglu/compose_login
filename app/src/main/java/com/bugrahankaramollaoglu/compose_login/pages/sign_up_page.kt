@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -43,7 +44,7 @@ import com.bugrahankaramollaoglu.compose_login.utils.signButton
 
 @Composable
 fun SignUpPage(navController: NavHostController) {
-    val backgroundImage: Painter = painterResource(id = R.drawable.bg)
+    val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
 
     // Get screen width and height
     val configuration = LocalConfiguration.current
@@ -62,7 +63,9 @@ fun SignUpPage(navController: NavHostController) {
             painter = backgroundImage,
             contentDescription = "Background Image",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(7.dp)
         )
 
 
