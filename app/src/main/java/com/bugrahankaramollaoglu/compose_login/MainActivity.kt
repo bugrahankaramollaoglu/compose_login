@@ -45,6 +45,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.bugrahankaramollaoglu.compose_login.pages.ForgotPage
 import com.bugrahankaramollaoglu.compose_login.pages.HomePage
 import com.bugrahankaramollaoglu.compose_login.pages.MainPage
 import com.bugrahankaramollaoglu.compose_login.pages.SignInPage
@@ -71,15 +72,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-suspend fun signInWithEmail(email: String, password: String): String? {
-    return try {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).await()
-        FirebaseAuth.getInstance().currentUser?.uid // Return the user ID
-    } catch (e: Exception) {
-        e.message // Return the error message
-    }
-}
-
 val myT = FontFamily(
     androidx.compose.ui.text.font.Font(R.font.kulim)
 )
@@ -103,5 +95,6 @@ fun Navigation() {
         composable("signUp") { SignUpPage(navController) }
         composable("main") { MainPage(navController) }
         composable("home") { HomePage(navController) }
+        composable("forgot") { ForgotPage(navController) }
     }
 }
