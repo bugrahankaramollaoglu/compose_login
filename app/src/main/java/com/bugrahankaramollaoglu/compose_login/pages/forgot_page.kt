@@ -183,12 +183,8 @@ fun ForgotPage(navController: NavHostController) {
                     }
 
                     if (errorMessage != null) {
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = errorMessage!!,
-                            color = Color.Red,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+
                     }
 
                     Spacer(modifier = Modifier.height(screenHeight / 5))
