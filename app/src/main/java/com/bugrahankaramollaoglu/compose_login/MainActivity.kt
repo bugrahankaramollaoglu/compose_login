@@ -89,13 +89,3 @@ fun Navigation() {
         composable("home") { HomePage(navController) }
     }
 }
-
-/*
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Compose_loginTheme {
-        LoginPage(navController)
-    }
-}
-*/

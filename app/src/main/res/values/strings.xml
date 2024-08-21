@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">compose_login</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</string>
 </resources>

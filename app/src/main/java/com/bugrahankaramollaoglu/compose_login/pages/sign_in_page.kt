@@ -63,7 +63,7 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun SignInPage(navController: NavHostController) {
     val context = LocalContext.current // Get the current context
-    val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
+    val backgroundImage: Painter = painterResource(id = R.drawable.bg)
 
     // Get screen width and height
     val configuration = LocalConfiguration.current

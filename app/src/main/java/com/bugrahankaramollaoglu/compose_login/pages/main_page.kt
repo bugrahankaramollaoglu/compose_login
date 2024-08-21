@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,6 +28,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,12 +36,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.bugrahankaramollaoglu.compose_login.R
+import com.bugrahankaramollaoglu.compose_login.myT
 import com.bugrahankaramollaoglu.compose_login.utils.ShimmerText
 import com.bugrahankaramollaoglu.compose_login.utils.signButton
 
 @Composable
 fun MainPage(navController: NavHostController) {
-    val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
+    val backgroundImage: Painter = painterResource(id = R.drawable.bg)
     val greenifyPhoto: Painter = painterResource(id = R.drawable.greenify)
     val google: Painter = painterResource(id = R.drawable.google)
     val apple: Painter = painterResource(id = R.drawable.apple)
@@ -53,8 +54,7 @@ fun MainPage(navController: NavHostController) {
     val screenHeight = configuration.screenHeightDp.dp
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Image(
             painter = backgroundImage,
@@ -86,8 +86,7 @@ fun MainPage(navController: NavHostController) {
                             )
                         )
                     )
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
+                    .padding(16.dp), contentAlignment = Alignment.Center
             ) {
                 // Content inside the card
                 Column(
@@ -96,8 +95,6 @@ fun MainPage(navController: NavHostController) {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Image(painter = greenifyPhoto, contentDescription = "Greenify Photo")
-
-                    Spacer(modifier = Modifier.height(20.dp))
 
                     signButton(
                         google,
@@ -137,38 +134,45 @@ fun MainPage(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(30.dp))
                     Row {
-                        Text(text = "No Account? ", color = Color.White)
+                        Text(
+                            text = "No Account? ",
+                            color = Color.White,
+                            fontFamily = myT,
+                            fontSize = 18.sp
+                        )
                         ShimmerText(text = "Sign Up", modifier = Modifier.clickable {
                             navController.navigate("signUp")
                         })
 
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.03f))
                     HorizontalDivider(
                         color = Color.White,
                         thickness = 1.dp,
                         modifier = Modifier.width(screenWidth * 0.55f)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.03f))
                     Text(
                         textAlign = TextAlign.Center,
-                        text = "Lorem Ipsum, Lorem Ipsum, Lorem Ipsum, Lorem Ipsum, Lorem Ipsum ",
-                        color = Color.White
+                        text = stringResource(id = R.string.lorem),
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontFamily = myT,
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.015f))
 
                     Text(
                         textAlign = TextAlign.Center,
                         text = "Cicero",
                         color = Color.White,
                         style = TextStyle(
-                            fontSize = 19.sp,
+                            fontSize = 20.sp,
+                            fontFamily = myT,
                             fontWeight = FontWeight.Bold,
                         )
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.1f))
                 }
             }
         }

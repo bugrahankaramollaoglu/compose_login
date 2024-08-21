@@ -57,7 +57,7 @@ fun SignUpPage(navController: NavHostController) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
-    val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
+    val backgroundImage: Painter = painterResource(id = R.drawable.bg)
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -134,8 +134,8 @@ fun SignUpPage(navController: NavHostController) {
                         painter = painterResource(id = R.drawable.a2),
                         contentDescription = "Logo",
                         modifier = Modifier
-                            .width(400.dp)
-                            .height(200.dp)
+                            .width(screenWidth * 0.7f)
+                            .height(screenHeight * 0.25f)
                     )
 
                     textField(email, "Enter email", KeyboardType.Email) { email = it }
@@ -144,17 +144,15 @@ fun SignUpPage(navController: NavHostController) {
                         confirmPassword, "Confirm password", KeyboardType.Password
                     ) { confirmPassword = it }
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.03f))
 
                     HorizontalDivider(
                         modifier = Modifier
-                            .width(200.dp)
-                            .height(20.dp),
-                        thickness = 2.dp,
-                        color = Color.White
+                            .width(screenWidth * 0.85f)
+                            .height(screenHeight * 0.015f), thickness = 2.dp, color = Color.White
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.025f))
 
                     signButton(
                         image = null,
@@ -196,7 +194,7 @@ fun SignUpPage(navController: NavHostController) {
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.03f))
 
                     Text(text = "Already Registered?", style = TextStyle(
                         color = Color.White, fontFamily = myT, fontSize = 17.sp,
@@ -205,7 +203,7 @@ fun SignUpPage(navController: NavHostController) {
                         navController.navigate("signIn")
                     })
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(screenHeight * 0.03f))
 
                 }
             }

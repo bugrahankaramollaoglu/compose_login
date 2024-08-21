@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bugrahankaramollaoglu.compose_login.myT
 
 
 @Composable
@@ -52,7 +53,7 @@ fun signButton(
                 )
             }
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text = title, color = Color.Black, fontSize = 17.sp)
+            Text(text = title, color = Color.Black, fontSize = 17.sp, fontFamily = myT)
         }
 
     }
