@@ -1,5 +1,6 @@
 package com.bugrahankaramollaoglu.compose_login.pages
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -48,6 +50,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 @Composable
 fun SignUpPage(navController: NavHostController) {
+    val context = LocalContext.current // Get the current context
     val backgroundImage: Painter = painterResource(id = R.drawable.bg5)
 
     // Get screen width and height
@@ -161,19 +164,30 @@ fun SignUpPage(navController: NavHostController) {
                         if (password == confirmPassword) {
                             signUpWithCredentials(email, password) { success, message ->
                                 if (success) {
-                                    // Navigate to another screen on successful sign-up
+
+                                    Toast.makeText(
+                                        context,
+                                        "Sign up successful!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
                                     navController.navigate("home") {
-                                        // Optional: Clear the back stack
                                         popUpTo(navController.graph.startDestinationId) {
                                             inclusive = true
                                         }
                                     }
                                 } else {
-                                    errorMessage = message
+                                    Toast.makeText(
+                                        context,
+                                        "Sign up unsuccessful",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
                                 }
                             }
                         } else {
-                            errorMessage = "Passwords do not match"
+                            Toast.makeText(context, "Passwords do not match!", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
 
