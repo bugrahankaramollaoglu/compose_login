@@ -1,7 +1,5 @@
 package com.bugrahankaramollaoglu.compose_login.pages
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -34,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -107,13 +105,25 @@ fun SignUpPage(navController: NavHostController) {
                         .padding(horizontal = 16.dp)
                 ) {
 
-                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.Start)
+                            .size(35.dp) // Size of the circular background
+                            .align(Alignment.Start) // Aligns the Box to the start
+                            .background(
+                                color = Color.White.copy(alpha = 0.5f), // Background color
+                                shape = RoundedCornerShape(24.dp) // Circular shape
+                            )
                             .clickable {
                                 navController.popBackStack()
-                            })
+                            }, contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black, // Icon color
+                            modifier = Modifier.size(24.dp) // Size of the icon
+                        )
+                    }
 
                     Image(
                         painter = painterResource(id = R.drawable.a2),
@@ -169,11 +179,12 @@ fun SignUpPage(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(15.dp))
 
-                    Text(
-                        text = "Already Registered?", style = TextStyle(
-                            color = Color.White, fontFamily = myT, fontSize = 17.sp
-                        )
-                    )
+                    Text(text = "Already Registered?", style = TextStyle(
+                        color = Color.White, fontFamily = myT, fontSize = 17.sp,
+
+                        ), modifier = Modifier.clickable {
+                        navController.navigate("signIn")
+                    })
 
                     Spacer(modifier = Modifier.height(20.dp))
 

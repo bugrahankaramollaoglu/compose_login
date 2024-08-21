@@ -13,10 +13,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -115,13 +117,26 @@ fun SignInPage(navController: NavHostController) {
                         .padding(horizontal = 16.dp)
                 ) {
 
-                    Icon(imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "a",
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.Start)
+                            .size(35.dp) // Size of the circular background
+                            .align(Alignment.Start) // Aligns the Box to the start
+                            .background(
+                                color = Color.White.copy(alpha = 0.5f), // Background color
+                                shape = RoundedCornerShape(24.dp) // Circular shape
+                            )
                             .clickable {
                                 navController.popBackStack()
-                            })
+                            }, contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black, // Icon color
+                            modifier = Modifier.size(24.dp) // Size of the icon
+                        )
+                    }
+
 
                     Spacer(modifier = Modifier.height(20.dp))
 
