@@ -138,7 +138,6 @@ fun SignInPage(navController: NavHostController) {
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(20.dp))
 
                     Image(
                         painter = painterResource(id = R.drawable.a1),
@@ -148,7 +147,7 @@ fun SignInPage(navController: NavHostController) {
                             .height(200.dp)
                     )
 
-                    Spacer(modifier = Modifier.height(50.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     textField(email, "Enter email", KeyboardType.Email) { email = it }
                     textField(password, "Enter password", KeyboardType.Password) { password = it }
@@ -176,7 +175,7 @@ fun SignInPage(navController: NavHostController) {
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(75.dp))
+                    Spacer(modifier = Modifier.height(100.dp))
                 }
             }
         }
