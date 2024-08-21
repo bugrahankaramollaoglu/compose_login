@@ -1,5 +1,6 @@
 package com.bugrahankaramollaoglu.compose_login.pages
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +20,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +43,8 @@ import androidx.navigation.NavHostController
 import com.bugrahankaramollaoglu.compose_login.R
 import com.bugrahankaramollaoglu.compose_login.utils.CustomTextField
 import com.bugrahankaramollaoglu.compose_login.utils.signButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 
 @Composable
 fun ForgotPage(navController: NavHostController) {
@@ -53,6 +58,8 @@ fun ForgotPage(navController: NavHostController) {
 
     // credentials
     var email by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -97,7 +104,6 @@ fun ForgotPage(navController: NavHostController) {
                         .fillMaxSize()
                         .padding(horizontal = 16.dp)
                 ) {
-
                     Box(
                         modifier = Modifier
                             .size(35.dp) // Size of the circular background
@@ -120,7 +126,6 @@ fun ForgotPage(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(screenHeight / 20))
 
-
                     Image(
                         painter = painterResource(id = R.drawable.a3),
                         contentDescription = "Logo",
@@ -131,10 +136,12 @@ fun ForgotPage(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    CustomTextField(value = email,
+                    CustomTextField(
+                        value = email,
                         placeholder = "Enter email",
                         keyboardType = KeyboardType.Email,
-                        onValueChange = { email = it })
+                        onValueChange = { email = it }
+                    )
 
                     Spacer(modifier = Modifier.height(screenHeight / 40))
 
@@ -152,10 +159,36 @@ fun ForgotPage(navController: NavHostController) {
                         contentDescription = "",
                         screenWidth = screenWidth,
                         screenHeight = screenHeight / 18,
-                        title = "Send Email"
+                        title = if (isLoading) "Sending..." else "Send Email"
                     ) {
-                        // Pass context to signIn function
-//                        signIn(email, password, navController, context)
+                        if (email.isNotEmpty()) {
+                            isLoading = true
+                            sendPasswordResetEmail(email) { result ->
+                                isLoading = false
+                                if (result != null) {
+                                    errorMessage = result
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "Reset email sent successfully!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    // Navigate back or show a confirmation message
+                                    navController.popBackStack()
+                                }
+                            }
+                        } else {
+                            errorMessage = "Please enter a valid email address."
+                        }
+                    }
+
+                    if (errorMessage != null) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = errorMessage!!,
+                            color = Color.Red,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(screenHeight / 5))
@@ -165,3 +198,18 @@ fun ForgotPage(navController: NavHostController) {
     }
 }
 
+
+fun sendPasswordResetEmail(email: String, callback: (String?) -> Unit) {
+    val auth = FirebaseAuth.getInstance()
+
+    auth.sendPasswordResetEmail(email)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                callback(null) // Success
+            } else {
+                val exception = task.exception as? FirebaseAuthException
+                val errorMessage = exception?.message ?: "Failed to send password reset email"
+                callback(errorMessage)
+            }
+        }
+}

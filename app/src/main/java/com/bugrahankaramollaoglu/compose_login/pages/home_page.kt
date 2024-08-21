@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -58,7 +59,15 @@ fun HomePage(navController: NavHostController) {
             if (mail != null) {
                 Text("Welcome,", color = Color.White, fontSize = 30.sp, fontFamily = myT)
                 Spacer(modifier = Modifier.height(screenHeight / 100))
-                Text(mail, color = Color.White, fontSize = 30.sp, fontFamily = myT)
+                Text(
+                    mail,
+                    color = Color.White,
+                    fontSize = 28.sp,
+                    fontFamily = myT,
+                    modifier = Modifier.fillMaxWidth(
+                        0.8f
+                    )
+                )
                 Spacer(modifier = Modifier.height(screenHeight / 25))
                 signButton(
                     image = null,

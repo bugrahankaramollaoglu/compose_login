@@ -13,7 +13,6 @@ fun signIn(email: String, password: String, navController: NavHostController, co
                 if (task.isSuccessful) {
                     // Sign-in successful
                     navController.navigate("home") {
-
                         // Optional: Clear the back stack
                         /*popUpTo(navController.graph.startDestinationId) {
                             inclusive = true
