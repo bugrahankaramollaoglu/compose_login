@@ -22,6 +22,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.rounded.Visibility
+import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -57,14 +59,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.Visibility
 import androidx.navigation.NavHostController
 import com.bugrahankaramollaoglu.compose_login.R
 import com.bugrahankaramollaoglu.compose_login.myT
 import com.bugrahankaramollaoglu.compose_login.utils.signButton
 import com.google.firebase.auth.FirebaseAuth
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInPage(navController: NavHostController) {
     val context = LocalContext.current // Get the current context
@@ -78,6 +78,7 @@ fun SignInPage(navController: NavHostController) {
     // credentials
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var isPasswordVisible by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -154,8 +155,19 @@ fun SignInPage(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    textField(email, "Enter email", KeyboardType.Email) { email = it }
-                    textField(password, "Enter password", KeyboardType.Password) { password = it }
+                    CustomTextField(value = email,
+                        placeholder = "Enter email",
+                        keyboardType = KeyboardType.Email,
+                        onValueChange = { email = it })
+
+                    CustomTextField(value = password,
+                        placeholder = "Enter password",
+                        keyboardType = KeyboardType.Password,
+                        isPassword = true,
+                        isPasswordVisible = isPasswordVisible,
+                        showHidePassword = { isPasswordVisible = !isPasswordVisible },
+                        onValueChange = { password = it })
+
 
                     rememberMeCheckbox()
 
@@ -242,44 +254,14 @@ fun rememberMeCheckbox() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun textField(value: String, hint: String, type: KeyboardType, onValueChange: (String) -> Unit) {
-    val visualTransformation = if (type == KeyboardType.Password) {
-        PasswordVisualTransformation()
-    } else {
-        VisualTransformation.None
-    }
-
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        label = { Text(hint) },
-
-        maxLines = 1,
-        shape = RoundedCornerShape(10.dp),
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = type, imeAction = ImeAction.Next
-        ),
-        colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            cursorColor = Color.White,
-            containerColor = Color.White.copy(alpha = 0.9f),
-        ),
-        textStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.W600),
-        visualTransformation = visualTransformation,
-        modifier = Modifier.padding(10.dp)
-    )
-}
-
-@Composable
-fun registerTextField(
+fun CustomTextField(
     value: String,
     placeholder: String,
     keyboardType: KeyboardType,
-    isPassword: Boolean = false,
     onValueChange: (String) -> Unit,
+    isPassword: Boolean = false,
     showHidePassword: (() -> Unit)? = null,
-    isPasswordVisible: Boolean = true
+    isPasswordVisible: Boolean = true,
 ) {
     val visualTransformation = if (isPassword && !isPasswordVisible) {
         PasswordVisualTransformation()
@@ -297,13 +279,22 @@ fun registerTextField(
             if (isPassword) {
                 IconButton(onClick = { showHidePassword?.invoke() }) {
                     Icon(
-                        imageVector = if (isPasswordVisible) Icons.Filled.Settings else Icons.Filled.Share,
+                        imageVector = if (isPasswordVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
                         contentDescription = if (isPasswordVisible) "Hide password" else "Show password"
                     )
                 }
             }
         },
-        modifier = Modifier.fillMaxWidth()
+        maxLines = 1,
+        shape = RoundedCornerShape(10.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            cursorColor = Color.Black,
+            containerColor = Color.White.copy(alpha = 0.9f),
+            focusedBorderColor = Color.Black.copy(alpha = 0.7f),
+        ),
+        textStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.W600),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
     )
 }
-

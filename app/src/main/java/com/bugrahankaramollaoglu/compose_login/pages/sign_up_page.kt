@@ -141,7 +141,34 @@ fun SignUpPage(navController: NavHostController) {
                             .height(screenHeight * 0.25f)
                     )
 
-                    registerTextField(
+                    CustomTextField(
+                        value = email,
+                        placeholder = "Enter email",
+                        keyboardType = KeyboardType.Email,
+                        onValueChange = { email = it }
+                    )
+
+                    CustomTextField(
+                        value = password,
+                        placeholder = "Enter password",
+                        keyboardType = KeyboardType.Password,
+                        isPassword = true,
+                        isPasswordVisible = isPasswordVisible,
+                        showHidePassword = { isPasswordVisible = !isPasswordVisible },
+                        onValueChange = { password = it }
+                    )
+
+                    CustomTextField(
+                        value = confirmPassword,
+                        placeholder = "Confirm password",
+                        keyboardType = KeyboardType.Password,
+                        isPassword = true,
+                        isPasswordVisible = isConfirmPasswordVisible,
+                        showHidePassword = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
+                        onValueChange = { confirmPassword = it }
+                    )
+
+                    /*registerTextField(
                         value = email,
                         placeholder = "Enter email",
                         keyboardType = KeyboardType.Email,
@@ -167,7 +194,7 @@ fun SignUpPage(navController: NavHostController) {
                         showHidePassword = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
                         onValueChange = { confirmPassword = it }
                     )
-
+*/
                     /*textField(email, "Enter email", KeyboardType.Email) { email = it }
                     textField(password, "Enter password", KeyboardType.Password) { password = it }
                     textField(
@@ -178,8 +205,8 @@ fun SignUpPage(navController: NavHostController) {
 
                     HorizontalDivider(
                         modifier = Modifier
-                            .width(screenWidth * 0.85f)
-                            .height(screenHeight * 0.015f), thickness = 2.dp, color = Color.White
+                            .width(screenWidth * 0.55f)
+                            .height(screenHeight * 0.015f), thickness = 1.dp, color = Color.White
                     )
 
                     Spacer(modifier = Modifier.height(screenHeight * 0.025f))

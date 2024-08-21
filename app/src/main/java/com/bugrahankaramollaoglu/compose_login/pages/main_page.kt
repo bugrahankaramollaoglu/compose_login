@@ -132,7 +132,8 @@ fun MainPage(navController: NavHostController) {
                         navController.navigate("signIn")
                     }
 
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
+
                     Row {
                         Text(
                             text = "No Account? ",
