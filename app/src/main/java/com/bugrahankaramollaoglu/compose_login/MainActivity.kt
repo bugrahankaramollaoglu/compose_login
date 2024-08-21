@@ -39,6 +39,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.bugrahankaramollaoglu.compose_login.pages.HomePage
 import com.bugrahankaramollaoglu.compose_login.pages.MainPage
 import com.bugrahankaramollaoglu.compose_login.pages.SignInPage
 import com.bugrahankaramollaoglu.compose_login.pages.SignUpPage
@@ -85,6 +86,7 @@ fun Navigation() {
         composable("signIn") { SignInPage(navController) }
         composable("signUp") { SignUpPage(navController) }
         composable("main") { MainPage(navController) }
+        composable("home") { HomePage(navController) }
     }
 }
 

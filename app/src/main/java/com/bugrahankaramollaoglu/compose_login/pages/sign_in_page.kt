@@ -1,5 +1,6 @@
 package com.bugrahankaramollaoglu.compose_login.pages
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,8 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -42,7 +41,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,6 +54,7 @@ import androidx.navigation.NavHostController
 import com.bugrahankaramollaoglu.compose_login.R
 import com.bugrahankaramollaoglu.compose_login.myT
 import com.bugrahankaramollaoglu.compose_login.utils.signButton
+import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -149,9 +148,17 @@ fun SignInPage(navController: NavHostController) {
                         screenWidth = screenWidth,
                         screenHeight = screenHeight / 18,
                         title = "Sign In"
-
                     ) {
 
+                        Log.d("mesaj", "Sign In Clicked")
+                        signIn(email, password, navController)
+                        /*//TODO: sign in with email and password
+                        navController.navigate("home") {
+                            // Optional: Clear the back stack
+                            popUpTo(navController.graph.startDestinationId) {
+                                inclusive = true
+                            }
+                        }*/
 
                     }
 
@@ -169,6 +176,31 @@ fun SignInPage(navController: NavHostController) {
                 }
             }
         }
+    }
+}
+
+
+fun signIn(email: String, password: String, navController: NavHostController) {
+    if (email.isNotEmpty() && password.isNotEmpty()) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign-in successful
+                    navController.navigate("home") {
+                        // Optional: Clear the back stack
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                    }
+                } else {
+                    // Sign-in failed
+                    Log.d("mesaj", "Sign-in failed: ${task.exception?.message}")
+                    // You can also show a message to the user here
+                }
+            }
+    } else {
+        Log.e("SignInPage", "Email and password cannot be empty")
+        // You can also show a message to the user here
     }
 }
 

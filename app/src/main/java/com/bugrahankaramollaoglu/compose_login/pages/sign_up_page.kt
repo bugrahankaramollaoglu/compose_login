@@ -151,15 +151,13 @@ fun SignUpPage(navController: NavHostController) {
                         if (password == confirmPassword) {
                             signUpWithCredentials(email, password) { success, message ->
                                 if (success) {
-
-
-                                    /*// Navigate to another screen on successful sign-up
-                                    navController.navigate("homePage") {
+                                    // Navigate to another screen on successful sign-up
+                                    navController.navigate("home") {
                                         // Optional: Clear the back stack
                                         popUpTo(navController.graph.startDestinationId) {
                                             inclusive = true
                                         }
-                                    }*/
+                                    }
                                 } else {
                                     errorMessage = message
                                 }
