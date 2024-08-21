@@ -148,9 +148,10 @@ fun MainPage(navController: NavHostController) {
                     }
                     Spacer(modifier = Modifier.height(screenHeight * 0.03f))
                     HorizontalDivider(
+
                         color = Color.White,
                         thickness = 1.dp,
-                        modifier = Modifier.width(screenWidth * 0.55f)
+                        modifier = Modifier.width(screenWidth * 0.45f)
                     )
                     Spacer(modifier = Modifier.height(screenHeight * 0.03f))
                     Text(

@@ -169,39 +169,6 @@ fun SignUpPage(navController: NavHostController) {
                         onValueChange = { confirmPassword = it }
                     )
 
-                    /*registerTextField(
-                        value = email,
-                        placeholder = "Enter email",
-                        keyboardType = KeyboardType.Email,
-                        onValueChange = { email = it }
-                    )
-
-                    registerTextField(
-                        value = password,
-                        placeholder = "Enter password",
-                        keyboardType = KeyboardType.Password,
-                        isPassword = true,
-                        isPasswordVisible = isPasswordVisible,
-                        showHidePassword = { isPasswordVisible = !isPasswordVisible },
-                        onValueChange = { password = it }
-                    )
-
-                    registerTextField(
-                        value = confirmPassword,
-                        placeholder = "Confirm password",
-                        keyboardType = KeyboardType.Password,
-                        isPassword = true,
-                        isPasswordVisible = isConfirmPasswordVisible,
-                        showHidePassword = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
-                        onValueChange = { confirmPassword = it }
-                    )
-*/
-                    /*textField(email, "Enter email", KeyboardType.Email) { email = it }
-                    textField(password, "Enter password", KeyboardType.Password) { password = it }
-                    textField(
-                        confirmPassword, "Confirm password", KeyboardType.Password
-                    ) { confirmPassword = it }*/
-
                     Spacer(modifier = Modifier.height(screenHeight * 0.03f))
 
                     HorizontalDivider(

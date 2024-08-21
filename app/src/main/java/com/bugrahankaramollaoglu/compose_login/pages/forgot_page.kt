@@ -20,8 +20,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,15 +46,13 @@ import com.google.firebase.auth.FirebaseAuthException
 
 @Composable
 fun ForgotPage(navController: NavHostController) {
-    val context = LocalContext.current // Get the current context
+    val context = LocalContext.current
     val backgroundImage: Painter = painterResource(id = R.drawable.bg)
 
-    // Get screen width and height
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val screenHeight = configuration.screenHeightDp.dp
 
-    // credentials
     var email by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var isLoading by remember { mutableStateOf(false) }
@@ -193,7 +189,6 @@ fun ForgotPage(navController: NavHostController) {
         }
     }
 }
-
 
 fun sendPasswordResetEmail(email: String, callback: (String?) -> Unit) {
     val auth = FirebaseAuth.getInstance()

@@ -64,9 +64,6 @@ fun HomePage(navController: NavHostController) {
                     color = Color.White,
                     fontSize = 28.sp,
                     fontFamily = myT,
-                    modifier = Modifier.fillMaxWidth(
-                        0.8f
-                    )
                 )
                 Spacer(modifier = Modifier.height(screenHeight / 25))
                 signButton(
