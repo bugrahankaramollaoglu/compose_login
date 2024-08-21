@@ -1,5 +1,6 @@
 package com.bugrahankaramollaoglu.compose_login.utils
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
