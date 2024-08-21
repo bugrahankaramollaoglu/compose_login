@@ -18,6 +18,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -26,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -81,8 +87,18 @@ val myT = FontFamily(
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
+    var startDestination by remember { mutableStateOf("main") }
 
-    NavHost(navController = navController, startDestination = "main") {
+    LaunchedEffect(Unit) {
+        val user = FirebaseAuth.getInstance().currentUser
+        startDestination = if (user != null) {
+            "home"
+        } else {
+            "main"
+        }
+    }
+
+    NavHost(navController = navController, startDestination = startDestination) {
         composable("signIn") { SignInPage(navController) }
         composable("signUp") { SignUpPage(navController) }
         composable("main") { MainPage(navController) }
