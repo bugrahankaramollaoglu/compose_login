@@ -1,14 +1,6 @@
 # compose login page
 
-![asd](https://github.com/bugrahankaramollaoglu/compose_login/blob/main/1.png)
-
-##### CatchFlappy is a 2D, simple game written in Java. You try to catch the bird as much as possible.. and that's it.
-
-### What does it have?
-* Threads & Handlers.
-* Splashes.
-* Modifiable configurations (sound/vibration).
-* Keeps track of the best score.
+##### this is my first experience with Jetpack Compose where I designed a minimalist login UI
 
 <div style="display: flex;">
   <div style="flex: 50%; padding: 5px;">
